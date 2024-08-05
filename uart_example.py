@@ -5,6 +5,8 @@ import serial
 print("UART Demonstration Program")
 print("NVIDIA Jetson Nano Developer Kit")
 
+def bytes_to_hex(byte_data):
+    return ' '.join(f'0x{byte:02x}' for byte in byte_data)
 
 serial_port = serial.Serial(
     port="/dev/ttyTHS1",
@@ -23,7 +25,7 @@ try:
     while True:
         if serial_port.inWaiting() > 0:
             data = serial_port.read()
-            print(data)
+            print(bytes_to_hex(data))
             serial_port.write(data)
             # if we get a carriage return, add a line feed too
             # \r is a carriage return; \n is a line feed
