@@ -28,7 +28,7 @@ try:
     while True:
         if serial_port.inWaiting() > 0:
             byte = serial_port.read()
-            byte_buffer.append(byte)
+            byte_buffer.append(bytes_to_hex(byte))
 
             if len(byte_buffer) == 8:
                 # hex_value = bytes(byte_buffer).hex().upper()
