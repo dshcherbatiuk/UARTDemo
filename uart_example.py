@@ -31,9 +31,9 @@ try:
             byte_buffer.append(byte)
 
             if len(byte_buffer) == 8:
-                # hex_value = bytes(byte_buffer).hex().upper()
-                print(bytes_to_hex(byte_buffer))
-                # print(hex_value)
+                hex_value = bytes(byte_buffer).hex().upper()
+                # print(bytes_to_hex(byte_buffer))
+                print(hex_value)
                 byte_buffer.clear()
 
             # serial_port.write(data)
