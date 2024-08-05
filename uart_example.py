@@ -10,6 +10,27 @@ def bytes_to_hex(byte_data):
     return ' '.join(f'0x{byte:02x}' for byte in byte_data)
 
 
+def hexdump(data, width=8):
+    """Prints a hexdump of the provided data.
+
+    Args:
+        data: The bytes-like object to be dumped.
+        width (optional): The number of bytes per line (default: 16).
+    """
+
+    for offset in range(0, len(data), width):
+        line_data = data[offset: offset + width]
+
+        # Hexadecimal values
+        hex_values = " ".join(f"{byte:02X}" for byte in line_data)
+
+        # Printable characters (replacing unprintable with '.')
+        printable = "".join(chr(byte) if 32 <= byte < 127 else "." for byte in line_data)
+
+        # Output with offset, hex, and printable characters
+        print(f"{offset:08X}  {hex_values:<{width * 3}}  {printable}")
+
+
 serial_port = serial.Serial(
     port="/dev/ttyTHS1",
     baudrate=115200,
@@ -28,12 +49,13 @@ try:
     while True:
         if serial_port.inWaiting() > 0:
             byte = serial_port.read()
-            byte_buffer.append(bytes_to_hex(byte).upper())
+            # byte_buffer.append(bytes_to_hex(byte).upper())
+            byte_buffer.append(byte)
 
             if len(byte_buffer) == 8:
                 # hex_value = bytes(byte_buffer).hex().upper()
                 # print(bytes_to_hex(byte_buffer))
-                print(byte_buffer)
+                print(hexdump(byte_buffer))
                 byte_buffer.clear()
 
             # serial_port.write(data)
