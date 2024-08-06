@@ -54,8 +54,8 @@ try:
 
             if len(byte_buffer) == 8:
                 # hex_value = bytes(byte_buffer).hex().upper()
-                # print(bytes_to_hex(byte_buffer))
-                print(hexdump(byte_buffer))
+                print(bytes_to_hex(byte_buffer))
+                # print(hexdump(byte_buffer))
                 byte_buffer.clear()
 
             # serial_port.write(data)
