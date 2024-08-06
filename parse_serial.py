@@ -32,15 +32,15 @@ with serial.Serial(
         stopbits=serial.STOPBITS_ONE) as ser:
     input = bytearray()
     while True:
-        # if n == 0:
-        #     n = 10
-        #     frame = crsf_build_frame(
-        #         PacketsTypes.BATTERY_SENSOR,
-        #         {"voltage": v, "current": 1, "capacity": 100, "remaining": 100},
-        #     )
-        #     v += 1
-        #     # ser.write(frame)
-        # n = n - 1
+        if n == 0:
+            n = 10
+            frame = crsf_build_frame(
+                PacketsTypes.BATTERY_SENSOR,
+                {"voltage": v, "current": 1, "capacity": 100, "remaining": 100},
+            )
+            v += 1
+            # ser.write(frame)
+        n = n - 1
         values = ser.read(100)
         print(values)
         input.extend(values)
