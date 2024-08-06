@@ -1,12 +1,11 @@
 #!/usr/bin/env python3
-from operator import contains
 from typing import Container
-from crsf_parser import CRSFParser, PacketValidationStatus
-import serial
-import time
 
-from crsf_parser.payloads import PacketsTypes
+import serial
+from crsf_parser import CRSFParser, PacketValidationStatus
+from crsf_parser.frames import SYNC_BYTE_BIN_STRING
 from crsf_parser.handling import crsf_build_frame
+from crsf_parser.payloads import PacketsTypes
 
 
 def print_frame(frame: Container, status: PacketValidationStatus) -> None:
@@ -32,18 +31,25 @@ with serial.Serial(
         stopbits=serial.STOPBITS_ONE) as ser:
     input = bytearray()
     while True:
-        if n == 0:
-            n = 10
-            frame = crsf_build_frame(
-                PacketsTypes.BATTERY_SENSOR,
-                {"voltage": v, "current": 1, "capacity": 100, "remaining": 100},
-            )
-            v += 1
-            # ser.write(frame)
-        n = n - 1
+        # if n == 0:
+        #     n = 10
+        #     frame = crsf_build_frame(
+        #         PacketsTypes.BATTERY_SENSOR,
+        #         {"voltage": v, "current": 1, "capacity": 100, "remaining": 100},
+        #     )
+        #     v += 1
+        #     # ser.write(frame)
+        # n = n - 1
+        if ser.in_waiting == 0:
+            continue
 
-        values = ser.read(100)
-        input.extend(values)
+        byte = ser.read()
+        if byte == SYNC_BYTE_BIN_STRING:
+            print("SYNC_BYTE")
+            input.clear()
 
-        print(input)
-        crsf_parser.parse_stream(input)
+        # values = ser.read(100)
+        # input.extend(values)
+
+        # print(input)
+        # crsf_parser.parse_stream(input)
