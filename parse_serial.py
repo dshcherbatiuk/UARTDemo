@@ -43,7 +43,7 @@ with serial.Serial(
         n = n - 1
 
         values = ser.read(100)
-        # print(values)
-
         input.extend(values)
+
+        print(input)
         crsf_parser.parse_stream(input)
