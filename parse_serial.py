@@ -41,6 +41,7 @@ with serial.Serial(
         #     # ser.write(frame)
         # n = n - 1
         if ser.in_waiting == 0:
+            print("No data")
             continue
 
         byte = ser.read()
