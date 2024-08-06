@@ -17,6 +17,9 @@ def print_frame(frame: Container, status: PacketValidationStatus) -> None:
     )
 
 
+print("UART Demonstration Program")
+print("NVIDIA Jetson Nano Developer Kit")
+
 crsf_parser = CRSFParser(print_frame)
 n = 10
 v = 1
