@@ -40,9 +40,9 @@ with serial.Serial(
         #     v += 1
         #     # ser.write(frame)
         # n = n - 1
-        if ser.in_waiting == 0:
-            print("No data")
-            continue
+        # if ser.in_waiting == 0:
+        #     print("No data")
+        #     continue
 
         byte = ser.read()
         if byte == SYNC_BYTE_BIN_STRING:
