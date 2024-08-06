@@ -45,7 +45,7 @@ with serial.Serial(
         #     continue
 
         byte = ser.read()
-        print(byte)
+        # print(byte)
         if byte == SYNC_BYTE_BIN_STRING:
             print("SYNC_BYTE")
             input.clear()
