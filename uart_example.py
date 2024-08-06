@@ -49,12 +49,12 @@ try:
     while True:
         if serial_port.inWaiting() > 0:
             byte = serial_port.read()
-            # byte_buffer.append(bytes_to_hex(byte).upper())
-            byte_buffer.append(byte)
+            byte_buffer.append(bytes_to_hex(byte))
+            # byte_buffer.append(byte)
 
             if len(byte_buffer) == 8:
                 # hex_value = bytes(byte_buffer).hex().upper()
-                print(bytes_to_hex(byte_buffer))
+                print(byte_buffer)
                 # print(hexdump(byte_buffer))
                 byte_buffer.clear()
 
