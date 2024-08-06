@@ -2,7 +2,8 @@
 from operator import contains
 from typing import Container
 from crsf_parser import CRSFParser, PacketValidationStatus
-from serial import Serial
+import serial
+import time
 
 from crsf_parser.payloads import PacketsTypes
 from crsf_parser.handling import crsf_build_frame
@@ -23,7 +24,12 @@ print("NVIDIA Jetson Nano Developer Kit")
 crsf_parser = CRSFParser(print_frame)
 n = 10
 v = 1
-with Serial("/dev/ttyTHS1", 115200, timeout=2) as ser:
+with serial.Serial(
+        "/dev/ttyTHS1",
+        115200,
+        bytesize=serial.EIGHTBITS,
+        parity=serial.PARITY_NONE,
+        stopbits=serial.STOPBITS_ONE) as ser:
     input = bytearray()
     while True:
         if n == 0:
